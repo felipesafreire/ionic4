@@ -1,0 +1,63 @@
+<ion-header>
+  <ion-toolbar color="primary" style="--padding-bottom: 0; --margin-bottom: 0;">
+    <ion-title slot="start" translate [translateParams]="{ lang: lingua | uppercase }">
+      home.titulo
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="mudarIdioma()">
+        <ion-icon name="globe"></ion-icon>
+      </ion-button>
+      <ion-button (click)="sincronizarDados()">
+        <ion-icon name="cloud-download"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar color="primary" style="--padding-top: 0; --margin-top: 0;">
+    <ion-searchbar slot="start" placeholder="{{ 'home.filtro_cidade' | translate}}" cancelButtonText=""
+      [(ngModel)]="filtrarCidade" (ionInput)="buscarCidades()"></ion-searchbar>
+    <ion-buttons slot="end" color="secondary">
+      <ion-button [routerLink]="['/cidade']">
+        Cidade
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content #content class="fundo-aplicativo">
+
+  <ion-item slot="fixed">
+    <ion-label position="stacked">{{ 'home.estado' | translate}}</ion-label>
+    <ion-select value="''" okText="OK" cancelText="Fechar" [(ngModel)]="uf" (ionChange)="buscarCidades()">
+      <ion-select-option value="''">{{ 'home.selecionar_estado' | translate}}</ion-select-option>
+      <ion-select-option value="{{estado.nome_uf}}" *ngFor="let estado of estados">
+        {{estado.nome_estado}}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content refreshingSpinner="bubbles"></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list *ngIf="listaCidade.items.length > 0" class="list-cidade">
+    <ion-item *ngFor="let cidade of listaCidade.items">
+      <ion-label>
+        {{cidade.cidade}}
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-list *ngIf="listaCidade.items.length == 0" class="list-cidade">
+    <ion-item lines="none" text-center>
+      <ion-label>
+        {{ 'home.cidade_nao_encontrada' | translate}}
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadMore($event)" *ngIf="listaCidade.hasMoreData">
+    <ion-infinite-scroll-content loadingSpinner="bubbles">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+</ion-content>

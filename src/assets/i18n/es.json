@@ -1,0 +1,11 @@
+{
+  "home": {
+    "titulo": "CIUDADES {{lang}}",
+    "estado": "Estado",
+    "filtro_cidade": "Filtrar ciudades",
+    "cidade_nao_encontrada": "Ninguna ciudad encontrada",
+    "selecionar_estado": "Seleccione un estado"
+  },
+  "idioma": "Cambiar idioma",
+  "cancelar": "Cancelar"
+}

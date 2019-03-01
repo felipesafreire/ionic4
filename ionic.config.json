@@ -1,0 +1,13 @@
+{
+  "name": "blank",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular",
+  "proxies": [
+    {
+      "path": "api",
+      "proxyUrl": "http://138.197.207.251/api"
+    }
+  ]
+}

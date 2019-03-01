@@ -1,0 +1,11 @@
+{
+  "home": {
+    "titulo": "CITIES {{lang}}",
+    "estado": "State",
+    "filtro_cidade": "Filter cities",
+    "cidade_nao_encontrada": "No city found",
+    "selecionar_estado": "Select state"
+  },
+  "idioma": "Change language",
+  "cancelar": "Cancel"
+}
