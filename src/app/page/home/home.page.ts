@@ -47,6 +47,28 @@ export class HomePage implements OnInit {
     this.buscarEstados();
   }
 
+  async mudarTema(){
+
+    const alert = await this.alertController.create({
+      header: 'Tema',
+      inputs: [
+        { name: '', type: 'radio', label: 'Padrão', value: '' },
+        { name: 'fullcontrol', type: 'radio', label: 'FullControl', value: 'fullcontrol' },
+        { name: 'atmos', type: 'radio', label: 'AtmosERP', value: 'atmoserp' },
+      ],
+      buttons: [{ text: this._translate.instant("cancelar"), role: 'cancel' }, {
+        text: 'OK',
+        handler: (data) => {
+          window.localStorage.setItem('tema', data)
+          location.reload();
+        }
+      }]
+    });
+
+    await alert.present();
+
+  }
+
   async mudarIdioma() {
 
     const alert = await this.alertController.create({

@@ -16,8 +16,8 @@
     <ion-searchbar slot="start" placeholder="{{ 'home.filtro_cidade' | translate}}" cancelButtonText=""
       [(ngModel)]="filtrarCidade" (ionInput)="buscarCidades()"></ion-searchbar>
     <ion-buttons slot="end" color="secondary">
-      <ion-button [routerLink]="['/cidade']">
-        Cidade
+      <ion-button (click)="mudarTema()">
+          <ion-icon name="color-fill"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
