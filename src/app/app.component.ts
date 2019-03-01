@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
@@ -10,7 +10,7 @@ import { ThemeswitcherService } from './service/themeswitcher/themeswitcher.serv
   selector: 'app-root',
   templateUrl: 'app.component.html'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
   public themeClass: string = 'fullcontrol';
 
@@ -23,6 +23,10 @@ export class AppComponent {
   ) {
     this._initTranslate();
     this.initializeApp();
+  }
+
+  ngOnInit() {
+    this.setTema();
   }
 
   initializeApp() {
@@ -60,7 +64,10 @@ export class AppComponent {
 
     this._translate.setDefaultLang(traducao);
     this._translate.use(traducao);
-    this._theme.setTheme('night');
+    //this.setTema('')
+    window.localStorage.setItem('tema','fullcontrol');
+
+    // this._theme.setTheme('night');
 
     // if (this._translate.getBrowserLang() !== undefined) {
     //   this._translate.use(this._translate.getBrowserLang());
@@ -69,6 +76,11 @@ export class AppComponent {
     //    // Set your language here
     // }
 
+  }
+
+  setTema() {
+    let tema = window.localStorage.getItem('tema');
+    require("style-loader!../theme/" + tema + ".css");
   }
 
 }

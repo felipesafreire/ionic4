@@ -1,0 +1,14 @@
+:root {
+  --ion-color-primary: #222428;
+  --ion-color-primary-rgb: 34, 34, 34;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-contrast-rgb: 255, 255, 255;
+  --ion-color-primary-shade: #1e2023;
+  --ion-color-primary-tint: #383a3e;
+  --ion-item-ios-background-color: #717171;
+  --ion-item-md-background-color: #717171;
+  --ion-tabbar-background-color: #222428;
+  --ion-tabbar-ios-text-color-active: #ffffff;
+  --ion-tabbar-md-text-color-active: #ffffff;
+  --ion-background-color: #383838;
+}
