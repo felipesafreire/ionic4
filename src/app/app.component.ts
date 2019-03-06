@@ -67,15 +67,6 @@ export class AppComponent implements OnInit {
     //this.setTema('')
     // window.localStorage.setItem('tema','fullcontrol');
 
-    // this._theme.setTheme('night');
-
-    // if (this._translate.getBrowserLang() !== undefined) {
-    //   this._translate.use(this._translate.getBrowserLang());
-    // }
-    // else {
-    //    // Set your language here
-    // }
-
   }
 
   setTema() {

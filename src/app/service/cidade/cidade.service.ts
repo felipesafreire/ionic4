@@ -18,7 +18,7 @@ export class CidadeService {
     private _serviceInternet: InternetService
   ) { }
 
-  buscarCidades(estado) {
+  getApi(estado) {
 
     return (
       this._http
@@ -112,28 +112,43 @@ export class CidadeService {
 
   }
 
-  public buscarCidadesSqlite(estado, cidade = '', skip) {
+  public buscarCidades(estado, cidade = '', skip) {
 
-    let sql = "SELECT * FROM cidade WHERE uf = ? ";
-    sql += (cidade === '' ? '' : "and cidade like '%" + cidade.toUpperCase() + "%'");
-    sql += "LIMIT " + Request.QUANTIDADE_LISTAGEM + " OFFSET " + skip;
+    if (!window.cordova) {
+      return this.getApi(estado);
+    } else {
+      let sql = "SELECT cidade as nome_cidade, id as id_cidade FROM cidade WHERE uf = ? ";
+      sql += (cidade === '' ? '' : "and cidade like '%" + cidade.toUpperCase() + "%'");
+      sql += "LIMIT " + Request.QUANTIDADE_LISTAGEM + " OFFSET " + skip;
 
-    console.log(sql);
+      return this.database
+        .getDatabase()
+        .then((db: SQLiteObject) => {
+          return db.executeSql(sql, [estado])
+            .then((data) => {
+              let dados = [];
+              for (let i = 0; i < data.rows.length; i++) {
+                let item = data.rows.item(i);
+                dados.push(item);
+              }
+              return dados;
+            });
+        })
+        .catch((err) => console.error(err))
+    }
 
-    return this.database
-      .getDatabase()
-      .then((db: SQLiteObject) => {
-        return db.executeSql(sql, [estado])
-          .then((data) => {
-            let dados = [];
-            for (let i = 0; i < data.rows.length; i++) {
-              let item = data.rows.item(i);
-              dados.push(item);
-            }
-            return dados;
-          });
+  }
+
+  public dadosCidadeIbge(cidadeIdIBGE) {
+
+    return this._http
+      .get(Request.BASE_URL_IBGE + `localidades/municipios/${cidadeIdIBGE}`)
+      .toPromise()
+      .then((success) => {
+        return success;
+      }, error => {
+        return error;
       })
-      .catch((err) => console.error(err))
 
   }
 

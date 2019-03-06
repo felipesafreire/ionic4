@@ -17,23 +17,24 @@
       [(ngModel)]="filtrarCidade" (ionInput)="buscarCidades()"></ion-searchbar>
     <ion-buttons slot="end" color="secondary">
       <ion-button (click)="mudarTema()">
-          <ion-icon name="color-fill"></ion-icon>
+        <ion-icon name="color-fill"></ion-icon>
       </ion-button>
     </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-item lines="none">
+      <ion-label position="stacked">{{ 'home.estado' | translate}}</ion-label>
+      <ion-select value="''" okText="OK" cancelText="Fechar" [(ngModel)]="uf" (ionChange)="buscarCidades()">
+        <ion-select-option value="''">{{ 'home.selecionar_estado' | translate}}</ion-select-option>
+        <ion-select-option value="{{estado.nome_uf}}" *ngFor="let estado of estados">
+          {{estado.nome_estado}}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
   </ion-toolbar>
 </ion-header>
 
 <ion-content #content class="fundo-aplicativo">
-
-  <ion-item slot="fixed">
-    <ion-label position="stacked">{{ 'home.estado' | translate}}</ion-label>
-    <ion-select value="''" okText="OK" cancelText="Fechar" [(ngModel)]="uf" (ionChange)="buscarCidades()">
-      <ion-select-option value="''">{{ 'home.selecionar_estado' | translate}}</ion-select-option>
-      <ion-select-option value="{{estado.nome_uf}}" *ngFor="let estado of estados">
-        {{estado.nome_estado}}
-      </ion-select-option>
-    </ion-select>
-  </ion-item>
 
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content refreshingSpinner="bubbles"></ion-refresher-content>
@@ -42,8 +43,9 @@
   <ion-list *ngIf="listaCidade.items.length > 0" class="list-cidade">
     <ion-item *ngFor="let cidade of listaCidade.items">
       <ion-label>
-        {{cidade.cidade}}
+        <p>{{cidade.nome_cidade}}</p>
       </ion-label>
+      <ion-icon name="arrow-dropright" slot="end" (click)="buscarDadosCidade(cidade.id_cidade)"></ion-icon>
     </ion-item>
   </ion-list>
 

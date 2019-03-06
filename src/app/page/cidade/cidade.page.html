@@ -4,11 +4,61 @@
       <ion-back-button [text]="''"></ion-back-button>
     </ion-buttons>
     <ion-title>
-      CIDADE
+      {{cidade.nome}}
     </ion-title>
+  </ion-toolbar>
+  <ion-toolbar style="padding: 0!important">
+
+    <ion-segment [(ngModel)]="segment">
+      <ion-segment-button value="microrregiao">
+        <ion-label>Micro Região</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="mesorregiao">
+        <ion-label>Macro Região</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
+
+  <div *ngIf="segment=='microrregiao'">
+
+    <ion-card>
+
+      <ion-card-header>
+        <ion-card-subtitle>{{cidade.nome}}</ion-card-subtitle>
+      </ion-card-header>
+
+      <ion-card-content>
+        <h3>ID: {{cidade.id}}</h3>
+        <h3>ID MICROREGIAO: {{cidade.microrregiao.id}}</h3>
+        <h3>NOME MICROREGIAO: {{cidade.microrregiao.nome}}</h3>
+      </ion-card-content>
+
+    </ion-card>
+
+  </div>
+
+  <div *ngIf="segment=='mesorregiao'">
+
+    <ion-card>
+
+      <ion-card-header>
+        <ion-card-subtitle>{{cidade.nome}}</ion-card-subtitle>
+      </ion-card-header>
+
+      <ion-card-content>
+        <h3>ID: {{cidade.id}}</h3>
+        <h3>ID MESOREGIAO: {{cidade.microrregiao.mesorregiao.id}}</h3>
+        <h3>NOME MICROREGIAO: {{cidade.microrregiao.mesorregiao.nome}}</h3>
+        <h3>NOME DO ESTADO: {{cidade.microrregiao.mesorregiao.UF.nome}}</h3>
+        <h3>UF: {{cidade.microrregiao.mesorregiao.UF.sigla}}</h3>
+      </ion-card-content>
+
+    </ion-card>
+
+  </div>
 
 </ion-content>

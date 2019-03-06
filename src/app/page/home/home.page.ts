@@ -5,9 +5,10 @@ import { CidadeService } from './../../service/cidade/cidade.service';
 import { QUANTIDADE_CIDADE_IMPORTADO } from './../../constants/cidades';
 import { LoadingService } from './../../service/ionic/loading.service';
 import { criarAlertaIonic } from './../../helper/ionic';
-import { AlertController, IonContent } from '@ionic/angular';
+import { AlertController, IonContent, NavController } from '@ionic/angular';
 import { Request } from './../../constants/request';
 import { TranslateService } from '@ngx-translate/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -33,13 +34,13 @@ export class HomePage implements OnInit {
   }
 
   constructor(
+    private _router: Router,
     private _serviceProduto: ProdutoService,
     private _serviceCidade: CidadeService,
     private _loading: LoadingService,
     private alertController: AlertController,
     private _translate: TranslateService
   ) {
-    //this.listaImportado = quantidadeProdutoImportado;
     this.listaImportado = QUANTIDADE_CIDADE_IMPORTADO;
   }
 
@@ -47,7 +48,7 @@ export class HomePage implements OnInit {
     this.buscarEstados();
   }
 
-  async mudarTema(){
+  async mudarTema() {
 
     const alert = await this.alertController.create({
       header: 'Tema',
@@ -119,7 +120,7 @@ export class HomePage implements OnInit {
     this.listaCidade.skip = 0
 
     this._serviceCidade
-      .buscarCidadesSqlite(this.uf, this.filtrarCidade, this.listaCidade.skip)
+      .buscarCidades(this.uf, this.filtrarCidade, this.listaCidade.skip)
       .then((success: any) => {
         this.inserirDadosCidades(success)
         this.content.scrollToTop();
@@ -133,7 +134,7 @@ export class HomePage implements OnInit {
   loadMore(event) {
 
     this._serviceCidade
-      .buscarCidadesSqlite(this.uf, this.filtrarCidade, this.listaCidade.skip)
+      .buscarCidades(this.uf, this.filtrarCidade, this.listaCidade.skip)
       .then((success: any) => {
         this.inserirDadosCidades(success)
         event.target.complete();
@@ -156,7 +157,7 @@ export class HomePage implements OnInit {
     this.listaCidade.skip = 0
 
     this._serviceCidade
-      .buscarCidadesSqlite(this.uf, this.filtrarCidade, this.listaCidade.skip)
+      .buscarCidades(this.uf, this.filtrarCidade, this.listaCidade.skip)
       .then((success: any) => {
         this.inserirDadosCidades(success)
         event.target.complete();
@@ -169,16 +170,25 @@ export class HomePage implements OnInit {
   }
 
   inserirDadosCidades(success) {
-    this.listaCidade.skip += Request.QUANTIDADE_LISTAGEM;
-    this.listaCidade.items = [];
-    for (let i = 0; i < success.length; i++) {
-      this.listaCidade.items.push(success[i]);
-    }
-    if (success.length < Request.QUANTIDADE_LISTAGEM) {
-      this.listaCidade.hasMoreData = false;
+
+    if (window.cordova) {
+
+      this.listaCidade.skip += Request.QUANTIDADE_LISTAGEM;
+      this.listaCidade.items = [];
+      for (let i = 0; i < success.length; i++) {
+        this.listaCidade.items.push(success[i]);
+      }
+      if (success.length < Request.QUANTIDADE_LISTAGEM) {
+        this.listaCidade.hasMoreData = false;
+      } else {
+        this.listaCidade.hasMoreData = true;
+      }
+
     } else {
-      this.listaCidade.hasMoreData = true;
+      this.listaCidade.items = success;
+      this.listaCidade.hasMoreData = false;
     }
+
   }
 
   importacaoProdutos(produtos) {
@@ -230,7 +240,7 @@ export class HomePage implements OnInit {
         this._serviceCidade.removerCidades();
         for (let i = 0; i < estados.length; i++) {
           this._serviceCidade
-            .buscarCidades(estados[i].nome_uf.toLowerCase())
+            .getApi(estados[i].nome_uf.toLowerCase())
             .then(request => {
               this.importarCidades(request, estados[i].nome_uf);
             })
@@ -243,6 +253,10 @@ export class HomePage implements OnInit {
       })
 
 
+  }
+
+  buscarDadosCidade(idCidade) {
+    this._router.navigateByUrl('/cidade/' + idCidade);
   }
 
   importarCidades(cidades, estado) {
