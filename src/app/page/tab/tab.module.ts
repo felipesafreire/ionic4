@@ -1,26 +1,26 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { Routes, RouterModule } from '@angular/router';
-
 import { IonicModule } from '@ionic/angular';
 
 import { TabPage } from './tab.page';
+import { TabPageRoutingModule } from './tab-routing.module';
+import { FinanceiroPageModule } from '../financeiro/financeiro.module';
+import { VendasPageModule } from '../vendas/vendas.module';
+import { ServicosPageModule } from '../servicos/servicos.module';
+import { OpcoesPageModule } from '../opcoes/opcoes.module';
+import { ContaCorrentePageModule } from '../conta-corrente/conta-corrente.module';
 
-const routes: Routes = [
-  {
-    path: '',
-    component: TabPage
-  }
-];
 
 @NgModule({
   imports: [
     CommonModule,
-    FormsModule,
     IonicModule,
-    RouterModule.forChild(routes)
+    TabPageRoutingModule,
+    FinanceiroPageModule,
+    VendasPageModule,
+    ServicosPageModule,
+    ContaCorrentePageModule
   ],
   declarations: [TabPage]
 })
-export class TabPageModule {}
+export class TabPageModule { }

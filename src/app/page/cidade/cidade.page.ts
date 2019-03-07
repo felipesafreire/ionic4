@@ -12,8 +12,7 @@ import { Cidade } from 'src/app/factory/cidade';
 export class CidadePage implements OnInit {
 
   public idCidade;
-  // public cidade = <Cidade> new Cidade();
-  public cidade = Cidade;
+  public cidade = new Cidade();
   public segment: string = 'microrregiao'
 
   constructor(
@@ -25,7 +24,6 @@ export class CidadePage implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.cidade);
     this.getDadosCidade()
   }
 

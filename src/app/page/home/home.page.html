@@ -1,9 +1,12 @@
 <ion-header>
   <ion-toolbar color="primary" style="--padding-bottom: 0; --margin-bottom: 0;">
-    <ion-title slot="start" translate [translateParams]="{ lang: lingua | uppercase }">
+    <ion-title translate [translateParams]="{ lang: lingua | uppercase }">
       home.titulo
     </ion-title>
     <ion-buttons slot="end">
+      <ion-button (click)="Tabs()">
+        <ion-icon name="albums"></ion-icon>
+      </ion-button>
       <ion-button (click)="mudarIdioma()">
         <ion-icon name="globe"></ion-icon>
       </ion-button>

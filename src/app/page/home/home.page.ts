@@ -35,6 +35,7 @@ export class HomePage implements OnInit {
 
   constructor(
     private _router: Router,
+    private _navController: NavController,
     private _serviceProduto: ProdutoService,
     private _serviceCidade: CidadeService,
     private _loading: LoadingService,
@@ -257,6 +258,10 @@ export class HomePage implements OnInit {
 
   buscarDadosCidade(idCidade) {
     this._router.navigateByUrl('/cidade/' + idCidade);
+  }
+
+  Tabs(){
+    this._router.navigateByUrl('/tab/financeiro');
   }
 
   importarCidades(cidades, estado) {

@@ -1,22 +1,26 @@
-  .md .list-cidade{
-    margin-top: 60px;
+.md .list-cidade {
+  margin-top: 60px;
+}
+
+.ios .list-cidade {
+  margin-top: 70px;
+}
+
+ion-item {
+  --padding-end: 16px;
+}
+
+ion-toolbar {
+  --min-height: 10px;
+}
+
+.inner-scroll .scroll-y {
+  margin-top: 60px !important;
+}
+
+:host {
+  .title-ios {
+    text-align: left !important;
+    padding: 0 0 0 16px !important;
   }
-
-  .ios .list-cidade{
-    margin-top: 70px;
-  }
-
-  ion-item{
-    --padding-end: 16px;
-  }
-
-  ion-toolbar{
-    --min-height: 10px;
-  }
-
-  .inner-scroll .scroll-y{
-    margin-top: 60px!important;
-  }
-
-
-           
+}
