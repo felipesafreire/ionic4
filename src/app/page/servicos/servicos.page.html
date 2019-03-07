@@ -1,9 +1,11 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>servicos</ion-title>
+  <ion-toolbar color="primary">
+    <ion-title>Serviços</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
+
+  <app-calendario-semanal-horizontal (diaSelecionado)="receberDiaSelecionado($event)"></app-calendario-semanal-horizontal>
 
 </ion-content>

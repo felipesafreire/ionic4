@@ -12,4 +12,9 @@ export class ServicosPage implements OnInit {
   ngOnInit() {
   }
 
+  receberDiaSelecionado(dia){
+    console.log("Pai recebeu");
+    console.log(dia);
+  }
+
 }

@@ -1,0 +1,23 @@
+<ion-grid style="padding:0px; margin: 0px;">
+
+  <ion-row style="padding:0px; margin: 0px;">
+
+    <ion-col *ngFor="let dia of diasParaAVisualizacao" (click)="GetDia(dia)" style="padding:0px;">
+      <p text-center style="padding:0px;">{{dia.diaDaSemanaAbreviado}}</p>
+      <p text-center style="padding:0px;">
+        <strong>{{dia.diaAbreviado}}</strong>
+      </p>
+    </ion-col>
+
+  </ion-row>
+
+  <ion-row style="padding:0px; margin: 0px;">
+    <ion-col style="padding:0px; margin: 0px;">
+      <p text-center style="padding:0px; margin: 0px;">
+        <strong>{{diaAtual}}</strong>
+      </p>
+    </ion-col>
+  </ion-row>
+
+
+</ion-grid>
