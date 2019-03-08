@@ -117,7 +117,7 @@ export class CidadeService {
     if (!window.cordova) {
       return this.getApi(estado);
     } else {
-      let sql = "SELECT cidade as nome_cidade, id as id_cidade FROM cidade WHERE uf = ? ";
+      let sql = "SELECT cidade as nome_cidade, cidade_id as id_cidade FROM cidade WHERE uf = ? ";
       sql += (cidade === '' ? '' : "and cidade like '%" + cidade.toUpperCase() + "%'");
       sql += "LIMIT " + Request.QUANTIDADE_LISTAGEM + " OFFSET " + skip;
 

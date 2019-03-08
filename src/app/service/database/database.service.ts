@@ -35,10 +35,31 @@ export class DatabaseService {
       ['CREATE TABLE IF NOT EXISTS estado(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, estado VARCHAR(50) NOT NULL, uf CHAR(2) NOT NULL)'],
       ['CREATE TABLE IF NOT EXISTS cidade(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, cidade VARCHAR(100) NOT NULL, cidade_id INTEGER NOT NULL, uf CHAR(2) NOT NULL)'],
       ['CREATE INDEX IF NOT EXISTS cidade_cidade ON cidade (cidade)'],
-      ['CREATE INDEX IF NOT EXISTS cidade_uf ON cidade (uf)']
+      ['CREATE INDEX IF NOT EXISTS cidade_uf ON cidade (uf)'],
+      ['IF DOES NOT EXISTS ALTER TABLE CIDADE ADD COLUMN  IGBE INTEGER'],
     ])
       .then(() => console.log('tabelas do banco criadas.'))
       .catch((error) => console.error("Erro ao criar as tabelas: ", error));
+
+    //ALTER TABLES VERIFY COLUMN IN DATABASE -> fazer função de verificar campos na tabela para alter table
+    //console.log(this.VerificaCamposTabela(db, 'cidade', 'cidade_id'));
+
+  }
+
+  private VerificaCamposTabela(db: SQLiteObject, tabela, campo) {
+
+    let sql = "PRAGMA table_info(" + tabela + ");"
+    let retorno = db.executeSql(sql, [])
+      .then(result => {
+        for (var i = 0; i < result.rows.length; i++) {
+          if (result.rows.item(i).name == campo) {
+            return false;
+          }
+        }
+      })
+      .catch(err => { return false });
+
+    return retorno;
 
   }
 
